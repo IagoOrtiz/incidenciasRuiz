@@ -5,12 +5,12 @@
     </div>
 
     @if (session('status') == 'verification-link-sent')
-        <div class="mb-4 font-medium text-sm text-green-600 dark:text-green-400">
+        <div class="mb-4">
             {{ __('Un nuevo link de verificación ha sido enviado al email dispuesto en el registro.') }}
         </div>
     @endif
 
-    <div class="mt-4 flex items-center justify-between">
+    <div class="mt-4 d-flex align-items-center justify-content-between">
         <form method="POST" action="{{ route('verification.send') }}">
             @csrf
 
