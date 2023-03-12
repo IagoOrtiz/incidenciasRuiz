@@ -1,106 +1,93 @@
 <x-app-layout>
     <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
+        <h2 class="py-3">
             Incidencias
         </h2>
     </x-slot>
 
-    <div class="py-12">
-        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-            <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
-                <div class="flex">
-                <form action="{{route('dashboard', 'complete')}}" method="get">
-                    @csrf
-                    <x-secondary-button>
-                        <input class="w-20" type="submit" value="REPARADAS">
-                    </x-secondary-button>
-                </form>
-                <form action="{{route('dashboard', 'ongoing')}}" method="get">
-                    @csrf
-                    <x-secondary-button>
-                        <input class="w-20" type="submit" value="EN PROCESO">
-                    </x-secondary-button>
-                </form>
-                <form action="{{route('dashboard', 'pending')}}" method="get">
-                    @csrf
-                    <x-secondary-button>
-                        <input class="w-20" type="submit" value="PENDIENTES">
-                    </x-secondary-button>
-                </form>
-                </div>
-                <div class="p-6 text-gray-900 dark:text-gray-100">
-                    <table class="table-auto border-collapse border text-center w-full">
-                        <thead>
-                        <tr>
-                            <th>Profesor Solicitante</th>
-                            <th>Fecha</th>
-                            <th>Estancia</th>
-                            <th>Dispositivo</th>
-                            <th>Descripción</th>
-                            <th>Estado</th>
-                            <th @if (auth()->user()->admin)
-                                colspan=2
-                            @endif>Controles</th>
-                            
-                           
-                        </tr>
-                        </thead>
-                        <tbody>
-                        @foreach ($incidencias as $incidencia)
-                            <tr class="border">
-                                <td>{{$incidencia->name}}</td>
-                                <td>{{$incidencia->updated_at}}</td>
-                                <td>{{$incidencia->room}}</td>
-                                <td>{{$incidencia->device}}</td>
-                                <td>{{$incidencia->description}}</td>
-                                @switch($incidencia->status)
-                                    @case('pending')
-                                        <td>Pendiente</td>
-                                        @break
-                                    @case('ongoing')
-                                        <td>En Reparación</td>
-                                        @break
-                                    @case('complete')
-                                        <td>Resuelta</td>
-                                        @break
-                                    @default
-                                        <td>Valor incorrecto</td>
-                                        @break
-                                @endswitch
-                                <td>
-                                    @if ($incidencia->teacherId == auth()->user()->id || auth()->user()->admin)
-                                        <form action="{{route('incidencias.destroy', $incidencia->id)}}" method="post">
-                                            @csrf
-                                            @method('delete')
-                                            <x-danger-button>
-                                                <input class="w-20" type="submit" value="BORRAR">
-                                            </x-danger-button>
-                                        </form>
+    <div>
+        <div class="d-flex align-items-center justify-content-center">
+            <form action="{{ route('dashboard', 'complete') }}" method="get">
+                @csrf
+                <input class="btn btn-secondary m-2" type="submit" value="REPARADAS">
+            </form>
+            <form action="{{ route('dashboard', 'ongoing') }}" method="get">
+                @csrf
+                <input class="btn btn-secondary m-2" type="submit" value="EN PROCESO">
+            </form>
+            <form action="{{ route('dashboard', 'pending') }}" method="get">
+                @csrf
+                <input class="btn btn-secondary m-2" type="submit" value="PENDIENTES">
+            </form>
+        </div>
+        <div>
+            <table class="table text-center mb-3 align-middle">
+                <thead>
+                    <tr>
+                        <th>Profesor Solicitante</th>
+                        <th class="ocultable">Fecha</th>
+                        <th class="ocultable">Estancia</th>
+                        <th class="ocultable">Dispositivo</th>
+                        <th>Descripción</th>
+                        <th>Estado</th>
+                        <th>Controles</th>
 
-                                        <form action="{{route('incidencias.edit', $incidencia->id)}}" method="get">
-                                            @csrf
-                                            <x-primary-button>
-                                                <input class="w-20" type="submit" value="ACTUALIZAR">
-                                            </x-primary-button>
-                                        </form>
-                                    @endif
-                                </td>
-                                @if (auth()->user()->admin)
-                                    <td>
-                                        <form action="{{route('incidencias.admin', $incidencia->id)}}" method="get">
-                                            @csrf
-                                            <x-secondary-button>
-                                                <input class="w-20" type="submit" value="ADMINISTRAR">
-                                            </x-secondary-button>
-                                        </form>
-                                    </td>
+
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach ($incidencias as $incidencia)
+                        <tr class="border">
+                            <td>{{ $incidencia->name }}</td>
+                            <td class="ocultable">{{ $incidencia->updated_at }}</td>
+                            <td class="ocultable">{{ $incidencia->room }}</td>
+                            <td class="ocultable">{{ $incidencia->device }}</td>
+                            <td>{{ $incidencia->description }}</td>
+                            @switch($incidencia->status)
+                                @case('pending')
+                                    <td>Pendiente</td>
+                                @break
+
+                                @case('ongoing')
+                                    <td>En Reparación</td>
+                                @break
+
+                                @case('complete')
+                                    <td>Resuelta</td>
+                                @break
+
+                                @default
+                                    <td>Valor incorrecto</td>
+                                @break
+                            @endswitch
+                            <td>
+                                @if ($incidencia->teacherId == auth()->user()->id || auth()->user()->admin)
+                                    <form action="{{ route('incidencias.destroy', $incidencia->id) }}" method="post">
+                                        @csrf
+                                        @method('delete')
+                                        <input class="btn btn-danger text-center" style="width: 7rem" type="submit"
+                                            value="BORRAR">
+                                    </form>
+
+                                    <form action="{{ route('incidencias.edit', $incidencia->id) }}" method="get">
+                                        @csrf
+                                        <input class="btn btn-primary text-center text-light" style="width: 7rem" type="submit"
+                                            value="EDITAR">
+                                    </form>
                                 @endif
-                            </tr>
-                        @endforeach
-                        </tbody>
-                    </table>
-                    {{$incidencias->links()}}
-                </div>
+                                @if (auth()->user()->admin)
+                                    <form action="{{ route('incidencias.admin', $incidencia->id) }}" method="get">
+                                        @csrf
+                                        <input class="btn btn-secondary ml-1" type="submit" value="ADMINISTRAR">
+                                    </form>
+                                @endif
+                            </td>
+                        </tr>
+                    @endforeach
+                </tbody>
+            </table>
+            <div class="m-2">
+                {{ $incidencias->links() }}
             </div>
         </div>
     </div>

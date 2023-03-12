@@ -1,30 +1,30 @@
 <x-app-layout>
     <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
+        <h2 class="py-3">
             Crear una incidencia
         </h2>
     </x-slot>
-    <div class="py-12">
-        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 flex flex-col items-center">
-            <form action="{{route('incidencias.store')}}" method="post">
+    <div>
+        <div class="my-4 mx-auto" style="max-width: 25rem">
+            <form action="{{ route('incidencias.store') }}" method="post" novalidate>
                 @csrf
-                <input type="hidden" name="teacherId" value="{{auth()->user()->id}}">
-                
+                <input type="hidden" name="teacherId" value="{{ auth()->user()->id }}">
+
                 <x-input-label>Localización</x-input-label>
                 <x-text-input type="text" name="room" required>
                     {{-- <input type="text" name="room"> --}}
                 </x-text-input>
 
-                <x-input-label>Dispositivo</x-input-label>
+                <x-input-label class="mt-3">Dispositivo</x-input-label>
                 <x-text-input type="text" name="device" required>
                     {{-- <input type="text" name="device"> --}}
                 </x-text-input>
-                <x-input-label>Descripción</x-input-label>
-                <textarea name="description" style="height: 300px" required></textarea><br>
 
-                <x-primary-button>
-                    <input type="submit" value="AÑADIR INCIDENCIA">
-                </x-primary-button>
+
+                <x-input-label class="mt-3">Descripción</x-input-label>
+                <textarea class="form-control" name="description" style="height: 300px" required></textarea>
+
+                <input class="btn btn-primary my-3 text-light" type="submit" value="AÑADIR INCIDENCIA">
             </form>
         </div>
     </div>

@@ -1,0 +1,13 @@
+$primary: #7288bc;
+@import 'bootstrap/scss/bootstrap';
+@media (max-width: 750px) {
+    .update {
+        flex-direction: column;
+    }
+    
+    .ocultable {
+        display: none;
+    }
+}
+
+
