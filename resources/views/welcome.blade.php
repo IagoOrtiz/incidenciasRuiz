@@ -18,8 +18,8 @@
 
                 <h1 class="display-3">Centro de Incidencias Informáticas</h1>
 
-                <div class="my-4" style="max-height: 20rem">
-                    <img src="img/logo.png" alt="Logo" class="w-100 h-100">
+                <div class="my-4" style="max-height: 20rem; max-width: 25rem">
+                    <img src="img/logo.png" alt="Logo" class="h-100 w-100">
                 </div>
                 
                 <div>
