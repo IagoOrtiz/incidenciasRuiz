@@ -1,5 +1,6 @@
 <x-guest-layout>
-    <div class="mb-4 text-sm text-gray-600 dark:text-gray-400">
+    <div style="max-width: 30rem"></div>
+    <div class="mb-4">
         {{ __('Para completar el registro debes verificar tu email haciendo click en el link que se ha enviado a tu correo.
          Si no lo has recibido, pulsa el botón de reenvío para recibir otro.') }}
     </div>
