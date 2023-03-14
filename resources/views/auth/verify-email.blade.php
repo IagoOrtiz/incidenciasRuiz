@@ -1,6 +1,6 @@
 <x-guest-layout>
-    <div style="max-width: 30rem"></div>
-    <div class="mb-4">
+    <div style="max-width: 30rem">
+    <div class="my-4">
         {{ __('Para completar el registro debes verificar tu email haciendo click en el link que se ha enviado a tu correo.
          Si no lo has recibido, pulsa el botón de reenvío para recibir otro.') }}
     </div>
@@ -25,9 +25,10 @@
         <form method="POST" action="{{ route('logout') }}">
             @csrf
 
-            <button type="submit" class="underline text-sm text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 dark:focus:ring-offset-gray-800">
+            <button type="submit" class="btn btn-secondary">
                 {{ __('Cerrar Sesión') }}
             </button>
         </form>
+    </div>
     </div>
 </x-guest-layout>
